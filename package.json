@@ -1,0 +1,26 @@
+{
+  "name": "@spibo-studio/spip",
+  "version": "1.0.0",
+  "description": "Spip is an HTML Canvas Library for creating adventure games",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fleveillee/spibo-studio.git"
+  },
+  "keywords": [
+    "Spip",
+    "HTML",
+    "Canvas",
+    "Adventure",
+    "Games"
+  ],
+  "author": "Frédéric Léveillée",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fleveillee/spibo-studio/issues"
+  },
+  "homepage": "https://github.com/fleveillee/spibo-studio#readme"
+}
