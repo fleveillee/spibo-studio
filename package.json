@@ -1,9 +1,11 @@
 {
-  "name": "@spibo-studio/spip",
-  "version": "1.0.0",
-  "description": "Spip is an HTML Canvas Library for creating adventure games",
-  "main": "index.js",
+  "name": "@spibo-studio/spibo-studio",
+  "version": "0.0.1",
+  "description": "Spibo Studio is an HTML Canvas Library for creating adventure games",
+  "main": "dist/app.js",
   "scripts": {
+    "build": "tsc",
+    "start": "tsc && node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,8 +13,9 @@
     "url": "git+https://github.com/fleveillee/spibo-studio.git"
   },
   "keywords": [
-    "Spip",
-    "HTML",
+    "Spibo-Studio",
+    "Spibo Studio",
+    "HTML5",
     "Canvas",
     "Adventure",
     "Games"
@@ -22,5 +25,9 @@
   "bugs": {
     "url": "https://github.com/fleveillee/spibo-studio/issues"
   },
-  "homepage": "https://github.com/fleveillee/spibo-studio#readme"
+  "homepage": "https://github.com/fleveillee/spibo-studio#readme",
+  "devDependencies": {
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  }
 }
