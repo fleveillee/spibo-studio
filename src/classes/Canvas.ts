@@ -3,6 +3,7 @@ export class Canvas {
     protected height: number;
     protected element: HTMLCanvasElement;
     protected context: CanvasRenderingContext2D | null;
+    protected drawLoop: number;
 
     constructor(width: number, height: number) {
         this.width = width;
@@ -10,6 +11,8 @@ export class Canvas {
         this.element = document.createElement("canvas");
         this.context = this.element.getContext("2d");
         document.body.appendChild(this.element);
+
+        this.drawLoop = setTimeout(this.draw, 1000);
     }
 
     public getContext(): CanvasRenderingContext2D | null {
