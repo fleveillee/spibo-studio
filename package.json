@@ -3,9 +3,19 @@
   "version": "0.0.1",
   "description": "Spibo Studio is an HTML Canvas Library for creating adventure games",
   "main": "dist/app.js",
+  "files": [
+    "build/**/*"
+  ],
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "test": "jest --config jestconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -26,7 +36,14 @@
   },
   "homepage": "https://github.com/fleveillee/spibo-studio#readme",
   "devDependencies": {
-    "tslint": "^5.18.0",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "prettier": "^1.18.2",
     "typescript": "^3.5.3"
-  }
+  },
+  "dependencies": {}
 }
