@@ -1,23 +1,32 @@
-export class Canvas {
-    protected width: number;
-    protected height: number;
-    protected element: HTMLCanvasElement;
-    protected context: CanvasRenderingContext2D | null;
-    protected drawLoop: number;
+import Character from "./Character";
 
-    constructor(width: number, height: number) {
-        this.width = width;
-        this.height = height;
-        this.element = document.createElement("canvas");
-        this.context = this.element.getContext("2d");
-        document.body.appendChild(this.element);
+class Canvas {
+  private _mainCharacter: Character | null = null;
+  protected width: number;
+  protected height: number;
+  protected element: HTMLCanvasElement;
+  protected context: CanvasRenderingContext2D | null;
+  protected refreshLoop: number;
 
-        this.drawLoop = setTimeout(this.draw, 1000);
-    }
 
-    public getContext(): CanvasRenderingContext2D | null {
-        return this.context;
-    }
+  public constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+    this.element = document.createElement('canvas');
+    this.context = this.element.getContext('2d');
+    document.body.appendChild(this.element);
+    const self = this;
+    this.refreshLoop = setTimeout((): void => self.refresh(), 1000);
+  }
+
+
+  public get mainCharacter(): Character | null {
+    return this._mainCharacter;
+  }
+
+  public set mainCharacter(value: Character | null) {
+    this._mainCharacter = value;
+  }
 
     public reset(): void {
         if (this.context) {
@@ -31,3 +40,5 @@ export class Canvas {
     }
 
 }
+
+export default Canvas;
