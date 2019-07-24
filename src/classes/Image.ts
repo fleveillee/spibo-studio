@@ -21,7 +21,13 @@ abstract class Image {
     return this.image.height;
   }
 
+  public get sprites(): Sprite[] {
+    return this._sprites;
+  }
 
+  public set sprites(value: Sprite[]) {
+    this._sprites = value;
+  }
 }
 
 export default Image;

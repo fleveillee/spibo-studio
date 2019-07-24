@@ -1,3 +1,4 @@
-export class CharacterSprite {
-
+class CharacterSprite {
 }
+
+export default CharacterSprite;
