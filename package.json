@@ -1,14 +1,14 @@
 {
   "name": "@spibo-studio/spibo-studio",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "description": "Spibo Studio is an HTML Canvas Library for creating adventure games",
   "main": "dist/spibo-studio.js",
   "types": "dist/spibo-studio.d.ts",
   "files": [
-    "build/**/*"
+    "dist/**/*"
   ],
   "scripts": {
-    "build": " rm -R ./dist/* && tsc",
+    "build": " rm -R ./dist/* || true && tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "prepare": "npm run build",

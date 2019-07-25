@@ -38,13 +38,12 @@ class Character extends Image {
     } else {
       this.xPos -= this.speed;
     }
-    this.setSpriteByName('moveLeft')
-
+    this.setSpriteByName('moveLeft');
   }
 
   public moveRight(): void {
     this.xPos += this.speed;
-    this.setSpriteByName('moveRight')
+    this.setSpriteByName('moveRight');
   }
 
   private setSpriteByName(name: string): boolean {

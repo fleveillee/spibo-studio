@@ -1,4 +1,4 @@
-import Character from "./Character";
+import Character from './Character';
 
 class Canvas {
   private _mainCharacter: Character | null = null;
@@ -7,7 +7,6 @@ class Canvas {
   protected element: HTMLCanvasElement;
   protected context: CanvasRenderingContext2D | null;
   protected refreshLoop: number;
-
 
   public constructor(width: number, height: number) {
     this.width = width;
@@ -18,7 +17,6 @@ class Canvas {
     const self = this;
     this.refreshLoop = setTimeout((): void => self.refresh(), 1000);
   }
-
 
   public get mainCharacter(): Character | null {
     return this._mainCharacter;
@@ -38,7 +36,17 @@ class Canvas {
   public draw(): void {
     if (this.context) {
       if (this.mainCharacter && this.mainCharacter.sprite) {
-        this.context.drawImage(this.mainCharacter.image, this.mainCharacter.sprite.xPos, this.mainCharacter.sprite.yPos, this.mainCharacter.width, this.mainCharacter.height, this.mainCharacter.xPos, this.mainCharacter.yPos, this.mainCharacter.width, this.mainCharacter.height);
+        this.context.drawImage(
+          this.mainCharacter.image,
+          this.mainCharacter.sprite.xPos,
+          this.mainCharacter.sprite.yPos,
+          this.mainCharacter.width,
+          this.mainCharacter.height,
+          this.mainCharacter.xPos,
+          this.mainCharacter.yPos,
+          this.mainCharacter.width,
+          this.mainCharacter.height,
+        );
       }
     }
   }
@@ -70,7 +78,6 @@ class Canvas {
           break;
       }
     }
-
   }
 
   public refresh(): void {

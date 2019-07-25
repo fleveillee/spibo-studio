@@ -1,7 +1,6 @@
-import Sprite from "./Sprite";
+import Sprite from './Sprite';
 
 abstract class Image {
-
   public image: HTMLImageElement;
   public xPos: number;
   public yPos: number;
