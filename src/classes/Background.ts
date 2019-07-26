@@ -1,8 +1,8 @@
-import Image from './Image';
+import CanvasImage from './CanvasImage';
 
-class Background extends Image {
-  public constructor(image: HTMLImageElement, xPos = 0, yPos = 0) {
-    super(image, xPos, yPos);
+class Background extends CanvasImage {
+  public constructor(imageSrc: string, width?: number, height?: number) {
+    super(imageSrc, width, height);
   }
 }
 

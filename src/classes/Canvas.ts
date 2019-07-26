@@ -1,7 +1,7 @@
 import Character from './Character';
 
 class Canvas {
-  private _mainCharacter: Character | null = null;
+  public mainCharacter: Character | null = null;
   protected width: number;
   protected height: number;
   protected element: HTMLCanvasElement;
@@ -18,14 +18,6 @@ class Canvas {
     this.refreshLoop = setTimeout((): void => self.refresh(), 1000);
   }
 
-  public get mainCharacter(): Character | null {
-    return this._mainCharacter;
-  }
-
-  public set mainCharacter(value: Character | null) {
-    this._mainCharacter = value;
-  }
-
   public reset(): void {
     if (this.context) {
       this.context.setTransform(1, 0, 0, 1, 0, 0);
@@ -35,11 +27,11 @@ class Canvas {
 
   public draw(): void {
     if (this.context) {
-      if (this.mainCharacter && this.mainCharacter.sprite) {
+      if (this.mainCharacter && this.mainCharacter.activeSprite) {
         this.context.drawImage(
-          this.mainCharacter.image,
-          this.mainCharacter.sprite.xPos,
-          this.mainCharacter.sprite.yPos,
+          this.mainCharacter,
+          this.mainCharacter.activeSprite.xPos,
+          this.mainCharacter.activeSprite.yPos,
           this.mainCharacter.width,
           this.mainCharacter.height,
           this.mainCharacter.xPos,

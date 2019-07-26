@@ -1,21 +1,15 @@
-import Image from './Image';
+import CanvasImage from './CanvasImage';
 import Sprite from './Sprite';
 
-class Character extends Image {
-  protected speed: number;
-  private _sprite: Sprite | null = null;
+class Character extends CanvasImage {
+  protected speed: number = 5;
+  public activeSprite: Sprite | null = null;
 
-  public constructor(image: HTMLImageElement, xPos: number = 0, yPos: number = 0, speed: number) {
-    super(image, xPos, yPos);
-    this.speed = speed;
-  }
-
-  public get sprite(): Sprite | null {
-    return this._sprite;
-  }
-
-  public set sprite(value: Sprite | null) {
-    this._sprite = value;
+  public constructor(imageSrc: string, width?: number, height?: number, speed?: number) {
+    super(imageSrc, width, height);
+    if (speed) {
+      this.speed = speed;
+    }
   }
 
   public moveUp(): void {
@@ -24,12 +18,12 @@ class Character extends Image {
     } else {
       this.yPos -= this.speed;
     }
-    this.setSpriteByName('moveUp');
+    this.setActiveSprite('movingUp');
   }
 
   public moveDown(): void {
     this.yPos += this.speed;
-    this.setSpriteByName('moveDown');
+    this.setActiveSprite('movingDown');
   }
 
   public moveLeft(): void {
@@ -38,19 +32,19 @@ class Character extends Image {
     } else {
       this.xPos -= this.speed;
     }
-    this.setSpriteByName('moveLeft');
+    this.setActiveSprite('movingLeft');
   }
 
   public moveRight(): void {
     this.xPos += this.speed;
-    this.setSpriteByName('moveRight');
+    this.setActiveSprite('movingRight');
   }
 
-  private setSpriteByName(name: string): boolean {
+  private setActiveSprite(name: string): boolean {
     let found = false;
     this.sprites.forEach((sprite): void => {
       if (sprite.name == name) {
-        this.sprite = sprite;
+        this.activeSprite = sprite;
         found = true;
         return;
       }
