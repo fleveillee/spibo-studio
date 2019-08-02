@@ -22,8 +22,13 @@ class Character extends CanvasImage {
   }
 
   public moveDown(): void {
-    this.yPos += this.speed;
     this.setActiveSprite('movingDown');
+    if (this.activeSprite) {
+      const newY = this.yPos + this.speed;
+      if (newY + this.activeSprite.height < 480) {
+        this.yPos = newY;
+      }
+    }
   }
 
   public moveLeft(): void {
@@ -36,8 +41,14 @@ class Character extends CanvasImage {
   }
 
   public moveRight(): void {
-    this.xPos += this.speed;
+
     this.setActiveSprite('movingRight');
+    if (this.activeSprite) {
+      const newX = this.xPos + this.speed;
+      if (newX + this.activeSprite.width < 640) {
+        this.xPos = newX;
+      }
+    }
   }
 
   public setActiveSprite(name: string): boolean {

@@ -1,8 +1,10 @@
 import Character from './Character';
+import Background from "./Background";
 
 class Canvas {
 
-  private _mainCharacter: Character | null = null;
+  public background: Background | null = null;
+  public mainCharacter: Character | null = null;
   protected element: HTMLCanvasElement;
   protected context: CanvasRenderingContext2D | null;
   private interval: number;
@@ -29,7 +31,11 @@ class Canvas {
   }
 
   public draw(): void {
+
     if (this.context) {
+      if (this.background) {
+        this.context.drawImage(this.background.image, 0, 0, this.background.image.width, this.background.image.height, 0, 0, this.element.width, this.element.height);
+      }
       if (this.mainCharacter && this.mainCharacter.activeSprite) {
         this.context.drawImage(
           this.mainCharacter.image,
@@ -72,14 +78,6 @@ class Canvas {
   public refresh(): void {
     this.reset();
     this.draw();
-  }
-
-  public get mainCharacter(): Character | null {
-    return this._mainCharacter;
-  }
-
-  public set mainCharacter(value: Character | null) {
-    this._mainCharacter = value;
   }
 
 }
