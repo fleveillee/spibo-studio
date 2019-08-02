@@ -3,15 +3,10 @@ import Character from './Character';
 class Canvas {
 
   private _mainCharacter: Character | null = null;
-  protected width: number;
-  protected height: number;
   protected element: HTMLCanvasElement;
   protected context: CanvasRenderingContext2D | null;
 
   public constructor(width: number, height: number) {
-    this.width = width;
-    this.height = height;
-
     this.element = document.createElement('canvas');
 
     this.element.width = width;
@@ -19,15 +14,14 @@ class Canvas {
     this.element.id = 'game-board';
     this.context = this.element.getContext('2d');
     document.body.appendChild(this.element);
-
-
+    // Listen for keyboard input
     document.addEventListener('keydown', (event): void => this.move(event));
   }
 
   public reset(): void {
     if (this.context) {
       this.context.setTransform(1, 0, 0, 1, 0, 0);
-      this.context.clearRect(0, 0, this.width, this.height);
+      this.context.clearRect(0, 0, this.element.width, this.element.height);
     }
   }
 
@@ -50,33 +44,27 @@ class Canvas {
   }
 
   public move(keyboardEvent: KeyboardEvent): void {
-    console.log(keyboardEvent.key);
-
     if (this.mainCharacter) {
       switch (keyboardEvent.key) {
         case 'w':
         case 'ArrowUp':
           this.mainCharacter.moveUp();
           this.refresh();
-          console.log('Move Up');
           break;
         case 'a':
         case 'ArrowLeft':
           this.mainCharacter.moveLeft();
           this.refresh();
-          console.log('Move Left');
           break;
         case 's':
         case 'ArrowDown':
           this.mainCharacter.moveDown();
           this.refresh();
-          console.log('Move Down');
           break;
         case 'd':
         case 'ArrowRight':
           this.mainCharacter.moveRight();
           this.refresh();
-          console.log('Move Right');
           break;
       }
     }
@@ -92,10 +80,15 @@ class Canvas {
   }
 
   public set mainCharacter(value: Character | null) {
-    console.log('seting up');
-    this._mainCharacter = value;
-    this.refresh();
+    if (value) {
+      this._mainCharacter = value;
+      const self = this;
+      this._mainCharacter.image.onload = function (): void {
+        self.refresh();
+      }
+    }
   }
+
 }
 
 export default Canvas;
