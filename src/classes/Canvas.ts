@@ -5,6 +5,7 @@ class Canvas {
   private _mainCharacter: Character | null = null;
   protected element: HTMLCanvasElement;
   protected context: CanvasRenderingContext2D | null;
+  private interval: number;
 
   public constructor(width: number, height: number) {
     this.element = document.createElement('canvas');
@@ -15,6 +16,8 @@ class Canvas {
     this.context = this.element.getContext('2d');
     document.body.appendChild(this.element);
     // Listen for keyboard input
+    const self = this;
+    this.interval = setInterval((): void => self.refresh(), 100);
     document.addEventListener('keydown', (event): void => this.move(event));
   }
 
@@ -49,22 +52,18 @@ class Canvas {
         case 'w':
         case 'ArrowUp':
           this.mainCharacter.moveUp();
-          this.refresh();
           break;
         case 'a':
         case 'ArrowLeft':
           this.mainCharacter.moveLeft();
-          this.refresh();
           break;
         case 's':
         case 'ArrowDown':
           this.mainCharacter.moveDown();
-          this.refresh();
           break;
         case 'd':
         case 'ArrowRight':
           this.mainCharacter.moveRight();
-          this.refresh();
           break;
       }
     }
@@ -80,13 +79,7 @@ class Canvas {
   }
 
   public set mainCharacter(value: Character | null) {
-    if (value) {
-      this._mainCharacter = value;
-      const self = this;
-      this._mainCharacter.image.onload = function (): void {
-        self.refresh();
-      }
-    }
+    this._mainCharacter = value;
   }
 
 }
