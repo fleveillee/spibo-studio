@@ -40,7 +40,7 @@ class Character extends CanvasImage {
     this.setActiveSprite('movingRight');
   }
 
-  private setActiveSprite(name: string): boolean {
+  public setActiveSprite(name: string): boolean {
     let found = false;
     this.sprites.forEach((sprite): void => {
       if (sprite.name == name) {
