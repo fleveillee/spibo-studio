@@ -14,7 +14,6 @@ abstract class CanvasImage {
   public get image(): HTMLImageElement {
     return this._image;
   }
-
 }
 
 export default CanvasImage;

@@ -3,4 +3,4 @@ import Canvas from './classes/Canvas';
 import Character from './classes/Character';
 import Sprite from './classes/Sprite';
 
-export {Background, Canvas, Character, Sprite};
+export { Background, Canvas, Character, Sprite };
