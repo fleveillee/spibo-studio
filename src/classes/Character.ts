@@ -1,10 +1,12 @@
-import CanvasImage from './CanvasImage';
-import Sprite from './Sprite';
+import Background from './Background';
 import Canvas from './Canvas';
+import CanvasImage from './Canvas/CanvasImage';
+import CanvasPosition from './Canvas/CanvasPosition';
+import CanvasImageSprite from './Canvas/CanvasImageSprite';
 
 class Character extends CanvasImage {
   protected speed: number = 5;
-  public activeSprite: Sprite | null = null;
+  public activeSprite: CanvasImageSprite | null = null;
 
   public constructor(imageSrc: string, width?: number, height?: number, speed?: number) {
     super(imageSrc, width, height);
@@ -14,90 +16,62 @@ class Character extends CanvasImage {
   }
 
   public moveUp(canvas: Canvas): void {
-    const {
-      background,
-      framerate,
-      boundaries: { top: boundary },
-    } = canvas;
-    const { activeSprite } = this;
+    const { background, framerate, boundaries } = canvas;
+    const { activeSprite, pos: currentPos, speed } = this;
 
-    if (activeSprite) {
-      const newY = this.yPos - this.speed / framerate;
-      if (newY < boundary) {
-        this.yPos = boundary;
-        if (background && background.scrollable && background.yPos > 0) {
-          const newBgYpos = background.yPos - this.speed / framerate;
-          background.yPos = newBgYpos < 0 ? 0 : newBgYpos;
-        }
-      } else {
-        this.yPos = newY;
+    if (activeSprite && currentPos) {
+      const newPos = new CanvasPosition(currentPos.x, currentPos.y - speed / framerate);
+
+      if (!boundaries.yIsWithinBoundaries(newPos.y)) {
+        newPos.y = boundaries.top;
+        if (background) background.moveUp(speed, framerate);
       }
+      if (!this.areFeetRestricted(background, newPos)) this.pos = newPos;
     }
   }
 
   public moveDown(canvas: Canvas): void {
-    const {
-      background,
-      framerate,
-      boundaries: { bottom: boundary },
-    } = canvas;
-    const { activeSprite } = this;
-    if (activeSprite) {
-      const newY = this.yPos + this.speed / framerate;
-      if (newY + activeSprite.height > boundary) {
-        this.yPos = boundary - activeSprite.height;
-        if (background && background.scrollable && background.yPos + canvas.height < background.height) {
-          const newBgYpos = background.yPos + this.speed / framerate;
-          background.yPos =
-            newBgYpos > background.height - canvas.height ? background.height - canvas.height : newBgYpos;
-        }
-      } else {
-        this.yPos = newY;
+    const { background, framerate, boundaries, height: canvasHeigth } = canvas;
+    const { activeSprite, pos: currentPos, speed } = this;
+
+    if (activeSprite && currentPos) {
+      const newPos = new CanvasPosition(currentPos.x, currentPos.y + this.speed / framerate);
+
+      if (!boundaries.yIsWithinBoundaries(newPos.y + activeSprite.height)) {
+        newPos.y = boundaries.bottom - activeSprite.height;
+        if (background) background.moveDown(speed, framerate, canvasHeigth);
       }
+      if (!this.areFeetRestricted(background, newPos)) this.pos = newPos;
     }
   }
 
   public moveLeft(canvas: Canvas): void {
-    const {
-      background,
-      framerate,
-      boundaries: { left: boundary },
-    } = canvas;
-    const { activeSprite } = this;
+    const { background, framerate, boundaries } = canvas;
+    const { activeSprite, pos: currentPos, speed } = this;
 
-    if (activeSprite) {
-      const newX = this.xPos - this.speed / framerate;
-      if (newX < boundary) {
-        this.xPos = boundary;
-        if (background && background.scrollable && background.xPos > 0) {
-          const newBgXpos = background.xPos - this.speed / framerate;
-          background.xPos = newBgXpos < 0 ? 0 : newBgXpos;
-        }
-      } else {
-        this.xPos = newX;
+    if (activeSprite && currentPos) {
+      const newPos = new CanvasPosition(currentPos.x - speed / framerate, currentPos.y);
+
+      if (!boundaries.xIsWithinBoundaries(newPos.x)) {
+        newPos.x = boundaries.left;
+        if (background) background.moveLeft(speed, framerate);
       }
+      if (!this.areFeetRestricted(background, newPos)) this.pos = newPos;
     }
   }
 
   public moveRight(canvas: Canvas): void {
-    const {
-      background,
-      framerate,
-      boundaries: { right: boundary },
-    } = canvas;
-    const { activeSprite } = this;
+    const { background, framerate, boundaries, width: canvasWidth } = canvas;
+    const { activeSprite, pos: currentPos, speed } = this;
 
-    if (activeSprite) {
-      const newX = this.xPos + this.speed / framerate;
-      if (newX + activeSprite.width > boundary) {
-        this.xPos = boundary - activeSprite.width;
-        if (background && background.scrollable && background.xPos < background.width - canvas.width) {
-          const newBgXpos = background.xPos + this.speed / framerate;
-          background.xPos = newBgXpos + canvas.width > background.width ? background.width - canvas.width : newBgXpos;
-        }
-      } else {
-        this.xPos = newX;
+    if (activeSprite && currentPos) {
+      const newPos = new CanvasPosition(currentPos.x + this.speed / framerate, currentPos.y);
+
+      if (!boundaries.xIsWithinBoundaries(newPos.x + activeSprite.width)) {
+        newPos.x = boundaries.right - activeSprite.width;
+        if (background) background.moveRight(speed, framerate, canvasWidth);
       }
+      if (!this.areFeetRestricted(background, newPos)) this.pos = newPos;
     }
   }
 
@@ -111,6 +85,16 @@ class Character extends CanvasImage {
       }
     });
     return found;
+  }
+
+  public areFeetRestricted(background: Background | null, pos: CanvasPosition): boolean {
+    const { activeSprite } = this;
+    if (background && activeSprite && this.pos) {
+      const outerLeftFoot = new CanvasPosition(pos.x, pos.y + activeSprite.height);
+      const outerRightFoot = new CanvasPosition(pos.x + activeSprite.width, pos.y + activeSprite.height);
+      return background.isRestricted(outerLeftFoot) || background.isRestricted(outerRightFoot);
+    }
+    return false;
   }
 }
 

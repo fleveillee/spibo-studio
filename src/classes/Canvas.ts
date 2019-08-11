@@ -39,7 +39,7 @@ class Canvas {
 
   public draw(): void {
     if (this.context) {
-      if (this.background) {
+      if (this.background && this.background.pos) {
         let xScale, yScale;
 
         if (this.background.scrollable) {
@@ -51,8 +51,8 @@ class Canvas {
         }
         this.context.drawImage(
           this.background.image,
-          this.background.xPos,
-          this.background.yPos,
+          this.background.pos.x,
+          this.background.pos.y,
           this.background.width,
           this.background.height,
           0,
@@ -61,15 +61,15 @@ class Canvas {
           yScale,
         );
       }
-      if (this.mainCharacter && this.mainCharacter.activeSprite) {
+      if (this.mainCharacter && this.mainCharacter.activeSprite && this.mainCharacter.pos) {
         this.context.drawImage(
           this.mainCharacter.image,
-          this.mainCharacter.activeSprite.xPos,
-          this.mainCharacter.activeSprite.yPos,
+          this.mainCharacter.activeSprite.pos.x,
+          this.mainCharacter.activeSprite.pos.y,
           this.mainCharacter.activeSprite.width,
           this.mainCharacter.activeSprite.height,
-          this.mainCharacter.xPos,
-          this.mainCharacter.yPos,
+          this.mainCharacter.pos.x,
+          this.mainCharacter.pos.y,
           this.mainCharacter.activeSprite.width,
           this.mainCharacter.activeSprite.height,
         );

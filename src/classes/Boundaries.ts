@@ -10,6 +10,16 @@ class Boundaries {
     this.bottom = bottom;
     this.left = left;
   }
+
+  public xIsWithinBoundaries(xPosition: number): boolean {
+    const { left, right } = this;
+    return left <= xPosition && xPosition <= right;
+  }
+
+  public yIsWithinBoundaries(yPosition: number): boolean {
+    const { top, bottom } = this;
+    return top <= yPosition && yPosition <= bottom;
+  }
 }
 
 export default Boundaries;
