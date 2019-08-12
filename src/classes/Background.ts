@@ -36,16 +36,8 @@ class Background extends CanvasImage {
     let restricted = false;
     const charBgPos = BackgroundPositionFactory.getBackgroundPosFromCanvasPos(position, this);
     if (charBgPos) {
-      this.restrictedZones.forEach((zone: CanvasRectangle): void => {
-        if (
-          charBgPos.x > zone.pos.x &&
-          charBgPos.x < zone.pos.x + zone.width &&
-          (charBgPos.y > zone.pos.y && charBgPos.y < zone.pos.y + zone.height)
-        ) {
-          restricted = true;
-          return;
-        }
-      });
+      const conflictualZone = this.restrictedZones.find((zone: CanvasRectangle): boolean => zone.isInside(charBgPos));
+      if (conflictualZone) restricted = true;
     }
     return restricted;
   }
