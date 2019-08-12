@@ -3,7 +3,9 @@ import CanvasPosition from './CanvasPosition';
 
 abstract class CanvasImage {
   public position: CanvasPosition | undefined;
+
   public sprites: CanvasImageSprite[] = [];
+
   private readonly _image: HTMLImageElement;
 
   protected constructor(src: string, width?: number, height?: number) {

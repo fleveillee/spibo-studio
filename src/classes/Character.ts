@@ -6,6 +6,7 @@ import CanvasImageSprite from './Canvas/CanvasImageSprite';
 
 class Character extends CanvasImage {
   protected speed: number = 5;
+
   public activeSprite: CanvasImageSprite | null = null;
 
   public constructor(imageSrc: string, width?: number, height?: number, speed?: number) {
@@ -77,13 +78,13 @@ class Character extends CanvasImage {
 
   public setActiveSprite(name: string): boolean {
     let found = false;
-    this.sprites.forEach((sprite): void => {
-      if (sprite.name == name) {
-        this.activeSprite = sprite;
-        found = true;
-        return; // quits foreach
-      }
-    });
+    const newSprite = this.sprites.find((sprite: CanvasImageSprite): boolean => sprite.name === name);
+
+    if (newSprite) {
+      this.activeSprite = newSprite;
+      found = true;
+    }
+
     return found;
   }
 

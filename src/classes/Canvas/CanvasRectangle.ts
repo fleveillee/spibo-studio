@@ -2,7 +2,9 @@ import CanvasPosition from './CanvasPosition';
 
 class CanvasRectangle {
   public position: CanvasPosition;
+
   public width: number;
+
   public height: number;
 
   public constructor(width: number, height: number, position: CanvasPosition) {

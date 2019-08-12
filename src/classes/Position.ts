@@ -1,5 +1,6 @@
 abstract class Position {
   public x: number;
+
   public y: number;
 
   protected constructor(x: number, y: number) {

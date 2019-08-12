@@ -5,13 +5,21 @@ import KeyboardInteractions from './KeyboardInteractions';
 
 class Canvas {
   public background: Background | null = null;
+
   public mainCharacter: Character | null = null;
+
   public boundaries: Boundaries;
+
   protected canvas: HTMLCanvasElement;
+
   protected context: CanvasRenderingContext2D | null;
+
   private _framerate!: number;
+
   private refreshInterval: number;
+
   private refreshIntervalTime: number = 100;
+
   private keyboardInteractions: KeyboardInteractions;
 
   public constructor(width: number, height: number, framerate: number = 40) {
@@ -40,7 +48,8 @@ class Canvas {
   public draw(): void {
     if (this.context) {
       if (this.background && this.background.pos) {
-        let xScale, yScale;
+        let xScale;
+        let yScale;
 
         if (this.background.scrollable) {
           xScale = this.background.width;
@@ -99,7 +108,7 @@ class Canvas {
     return this._framerate;
   }
 
-  //TODO : on set unset or change maincharacter : stop keyboard moving intervals
+  // TODO : on set unset or change maincharacter : stop keyboard moving intervals
 }
 
 export default Canvas;

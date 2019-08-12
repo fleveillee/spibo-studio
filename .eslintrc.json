@@ -26,10 +26,14 @@
     "useJSXTextNode": true
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "rules": {
-    "no-console": 0
+    "no-console": 0,
+    "prettier/prettier": "error",
+    "no-underscore-dangle": "off",
+    "no-useless-constructor": "off"
   },
   "settings": {
     "import/resolver": {

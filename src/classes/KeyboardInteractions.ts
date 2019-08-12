@@ -2,8 +2,11 @@ import Canvas from './Canvas';
 
 class KeyboardInteractions {
   public movingUp: number | null = null;
+
   public movingRight: number | null = null;
+
   public movingDown: number | null = null;
+
   public movingLeft: number | null = null;
 
   public constructor(canvas: Canvas) {
@@ -44,6 +47,8 @@ class KeyboardInteractions {
             mainCharacter.setActiveSprite('movingRight');
             this.movingRight = setInterval(mainCharacter.moveRight.bind(mainCharacter), 1000 / framerate, canvas);
           }
+          break;
+        default:
           break;
       }
     }
@@ -100,6 +105,8 @@ class KeyboardInteractions {
               else if (this.movingLeft) mainCharacter.setActiveSprite('movingLeft');
             }
           }
+          break;
+        default:
           break;
       }
     }
