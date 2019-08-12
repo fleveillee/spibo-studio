@@ -1,9 +1,11 @@
 import CanvasImage from './Canvas/CanvasImage';
 import CanvasPosition from './Canvas/CanvasPosition';
 import CanvasRectangle from './Canvas/CanvasRectangle';
+import BackgroundPositionFactory from './Background/BackgroundPositionFactory';
 
 class Background extends CanvasImage {
   public scrollable: boolean = false;
+
   public restrictedZones: CanvasRectangle[] = [];
 
   public constructor(
@@ -32,7 +34,7 @@ class Background extends CanvasImage {
 
   public isRestricted(position: CanvasPosition): boolean {
     let restricted = false;
-    const charBgPos = this.getPosInBgContext(position);
+    const charBgPos = BackgroundPositionFactory.getBackgroundPosFromCanvasPos(position, this);
     if (charBgPos) {
       this.restrictedZones.forEach((zone: CanvasRectangle): void => {
         if (
@@ -46,16 +48,6 @@ class Background extends CanvasImage {
       });
     }
     return restricted;
-  }
-
-  private getPosInBgContext(position: CanvasPosition): CanvasPosition | null {
-    const { position: bgPosition } = this;
-    if (bgPosition) {
-      position.x += bgPosition.x;
-      position.y += bgPosition.y;
-      return position;
-    }
-    return null;
   }
 
   public moveUp(speed: number, framerate: number): void {
