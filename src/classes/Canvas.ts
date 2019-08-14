@@ -22,12 +22,17 @@ class Canvas {
 
   private keyboardInteractions: KeyboardInteractions;
 
-  public constructor(width: number, height: number, framerate: number = 40) {
+  public constructor(width: number, height: number, framerate: number = 40, boundaries?: Boundaries) {
     this.canvas = document.createElement('canvas');
     this.canvas.id = 'game-board';
     this.canvas.width = width;
     this.canvas.height = height;
-    this.boundaries = new Boundaries(0, this.width, this.height, 0);
+    if (boundaries) {
+      this.boundaries = boundaries;
+    } else {
+      this.boundaries = new Boundaries(0, this.width, this.height, 0);
+    }
+
     this.context = this.canvas.getContext('2d');
     document.body.appendChild(this.canvas);
     // Listen for keyboard input

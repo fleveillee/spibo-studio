@@ -8,6 +8,8 @@ class Background extends CanvasImage {
 
   public restrictedZones: CanvasRectangle[] = [];
 
+  public gateways: CanvasRectangle[] = [];
+
   public constructor(
     imageSrc: string,
     width?: number,
@@ -40,6 +42,16 @@ class Background extends CanvasImage {
       if (conflictualZone) restricted = true;
     }
     return restricted;
+  }
+
+  public checkGateways(position: CanvasPosition): void {
+    const charBgPos = BackgroundPositionFactory.getBackgroundPosFromCanvasPos(position, this);
+    if (charBgPos) {
+      const gatewayEntered = this.gateways.find((gateway: CanvasRectangle): boolean => gateway.isInside(charBgPos));
+      if (gatewayEntered && gatewayEntered.action) {
+        gatewayEntered.action();
+      }
+    }
   }
 
   public moveUp(speed: number, framerate: number): void {

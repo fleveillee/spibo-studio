@@ -27,7 +27,10 @@ class Character extends CanvasImage {
         newPos.y = boundaries.top;
         if (background) background.moveUp(speed, framerate);
       }
-      if (!this.areFeetRestricted(background, newPos)) this.pos = newPos;
+      if (!this.areFeetRestricted(background, newPos)) {
+        this.pos = newPos;
+        if (background) this.verifyGateways(background, newPos);
+      }
     }
   }
 
@@ -42,7 +45,10 @@ class Character extends CanvasImage {
         newPos.y = boundaries.bottom - activeSprite.height;
         if (background) background.moveDown(speed, framerate, canvasHeigth);
       }
-      if (!this.areFeetRestricted(background, newPos)) this.pos = newPos;
+      if (!this.areFeetRestricted(background, newPos)) {
+        this.pos = newPos;
+        if (background) this.verifyGateways(background, newPos);
+      }
     }
   }
 
@@ -57,7 +63,10 @@ class Character extends CanvasImage {
         newPos.x = boundaries.left;
         if (background) background.moveLeft(speed, framerate);
       }
-      if (!this.areFeetRestricted(background, newPos)) this.pos = newPos;
+      if (!this.areFeetRestricted(background, newPos)) {
+        this.pos = newPos;
+        if (background) this.verifyGateways(background, newPos);
+      }
     }
   }
 
@@ -72,7 +81,10 @@ class Character extends CanvasImage {
         newPos.x = boundaries.right - activeSprite.width;
         if (background) background.moveRight(speed, framerate, canvasWidth);
       }
-      if (!this.areFeetRestricted(background, newPos)) this.pos = newPos;
+      if (!this.areFeetRestricted(background, newPos)) {
+        this.pos = newPos;
+        if (background) this.verifyGateways(background, newPos);
+      }
     }
   }
 
@@ -89,13 +101,34 @@ class Character extends CanvasImage {
   }
 
   public areFeetRestricted(background: Background | null, pos: CanvasPosition): boolean {
-    const { activeSprite } = this;
-    if (background && activeSprite && this.pos) {
-      const outerLeftFoot = new CanvasPosition(pos.x, pos.y + activeSprite.height);
-      const outerRightFoot = new CanvasPosition(pos.x + activeSprite.width, pos.y + activeSprite.height);
-      return background.isRestricted(outerLeftFoot) || background.isRestricted(outerRightFoot);
+    if (background) {
+      const feetPositions = this.getFeetPosition(pos);
+      if (feetPositions) {
+        return background.isRestricted(feetPositions[0]) || background.isRestricted(feetPositions[1]);
+      }
     }
     return false;
+  }
+
+  public verifyGateways(background: Background | null, pos: CanvasPosition): boolean {
+    if (background) {
+      const feetPositions = this.getFeetPosition(pos);
+      if (feetPositions) {
+        background.checkGateways(feetPositions[0]);
+        background.checkGateways(feetPositions[1]);
+      }
+    }
+    return false;
+  }
+
+  public getFeetPosition(pos: CanvasPosition): CanvasPosition[] | null {
+    const { activeSprite } = this;
+    if (activeSprite) {
+      const outerLeftFoot = new CanvasPosition(pos.x, pos.y + activeSprite.height);
+      const outerRightFoot = new CanvasPosition(pos.x + activeSprite.width, pos.y + activeSprite.height);
+      return [outerLeftFoot, outerRightFoot];
+    }
+    return null;
   }
 }
 

@@ -1,5 +1,6 @@
 import Background from './classes/Background';
 import BackgroundPosition from './classes/Background/BackgroundPosition';
+import Boundaries from './classes/Boundaries';
 import Canvas from './classes/Canvas';
 import Character from './classes/Character';
 import CanvasPosition from './classes/Canvas/CanvasPosition';
@@ -10,6 +11,7 @@ import CanvasRectangle from './classes/Canvas/CanvasRectangle';
 export {
   Background,
   BackgroundPosition,
+  Boundaries,
   Canvas,
   Character,
   CanvasPosition,

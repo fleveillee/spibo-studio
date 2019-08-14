@@ -7,10 +7,13 @@ class CanvasRectangle {
 
   public height: number;
 
-  public constructor(width: number, height: number, position: BackgroundPosition) {
+  public action: Function | undefined;
+
+  public constructor(width: number, height: number, position: BackgroundPosition, action?: Function) {
     this.width = width;
     this.height = height;
     this.position = position;
+    if (action) this.action = action;
   }
 
   public get pos(): BackgroundPosition {
