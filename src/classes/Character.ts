@@ -35,7 +35,7 @@ class Character extends CanvasImage {
   }
 
   public moveDown(canvas: Canvas): void {
-    const { background, framerate, boundaries, height: canvasHeigth } = canvas;
+    const { background, framerate, boundaries, height: canvasHeight } = canvas;
     const { activeSprite, pos: currentPos, speed } = this;
 
     if (activeSprite && currentPos) {
@@ -43,7 +43,7 @@ class Character extends CanvasImage {
 
       if (!boundaries.yIsWithinBoundaries(newPos.y + activeSprite.height)) {
         newPos.y = boundaries.bottom - activeSprite.height;
-        if (background) background.moveDown(speed, framerate, canvasHeigth);
+        if (background) background.moveDown(speed, framerate, canvasHeight);
       }
       if (!this.areFeetRestricted(background, newPos)) {
         this.pos = newPos;

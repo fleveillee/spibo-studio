@@ -113,7 +113,7 @@ class Canvas {
     return this._framerate;
   }
 
-  // TODO : on set unset or change maincharacter : stop keyboard moving intervals
+  // TODO : on set unset or change mainCharacter : stop keyboard moving intervals
 }
 
 export default Canvas;
