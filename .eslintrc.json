@@ -40,6 +40,15 @@
     "prettier/prettier": "error",
     "no-underscore-dangle": "off",
     "no-useless-constructor": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {
+          "Function": false
+        },
+        "extendDefaults": true
+      }
+    ],
     "@typescript-eslint/no-inferrable-types": [
       2,
       {

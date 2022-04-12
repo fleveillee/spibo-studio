@@ -1,6 +1,6 @@
 {
   "name": "@spibo-studio/spibo-studio",
-  "version": "0.0.2",
+  "version": "0.0.12",
   "description": "Spibo Studio is an HTML Canvas Library for creating adventure games",
   "main": "dist/spibo-studio.js",
   "types": "dist/spibo-studio.d.ts",

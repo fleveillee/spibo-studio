@@ -22,7 +22,7 @@ class Canvas {
 
   private keyboardInteractions: KeyboardInteractions;
 
-  public constructor(width: number, height: number, framerate: number = 40, boundaries?: Boundaries) {
+  public constructor(width: number, height: number, boundaries?: Boundaries, framerate: number = 40) {
     this.canvas = document.createElement('canvas');
     this.canvas.id = 'game-board';
     this.canvas.width = width;
@@ -36,6 +36,7 @@ class Canvas {
     this.context = this.canvas.getContext('2d');
     document.body.appendChild(this.canvas);
     // Listen for keyboard input
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     this.framerate = framerate;
     this.refreshInterval = setInterval((): void => self.refresh());
